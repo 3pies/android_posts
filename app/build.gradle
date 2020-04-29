@@ -1,36 +1,196 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
+
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlin-allopen'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+def getBuildDate() {
+    def date = new Date()
+    def formattedDate = date.format("yyyy-MM-dd'T'HH:mm:ss")
+    return formattedDate
+}
+
+/*allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.trespies.posts.testing.OpenClass'
+}*/
 android {
-    compileSdkVersion 29
 
+    def mayor = 0
+    def minor = 1
+    def patch = 0
+    def name = "A"
 
+    def BUILD_DATE = getBuildDate()
+
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
     defaultConfig {
         applicationId "com.trespies.posts"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "$mayor.$minor.$patch $name"
+        multiDexEnabled true
+        testInstrumentationRunner "com.trespies.posts.GithubTestRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+    signingConfigs {
+        myConfig {
+            storeFile file("keyStore")
+            storePassword "password"
+            keyAlias "alias"
+            keyPassword "password"
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "BUILD_DATE", "\"$BUILD_DATE\""
+            manifestPlaceholders = [applicationLabel: "@string/app_name"]
+            applicationIdSuffix ".dev"
+            debuggable true
+        }
+        release {
+            buildConfigField "String", "BUILD_DATE", "\"$BUILD_DATE\""
+            signingConfig signingConfigs.myConfig
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    flavorDimensions "corporate"
+
+    productFlavors {
+        corporate {
+            //applicationId coge el por defecto
+            dimension "corporate"
         }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        test.java.srcDirs += "src/test-common/java"
+    }
+    lintOptions {
+        lintConfig rootProject.file('lint.xml')
+        abortOnError false
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    configurations.all {
+        all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //implementation project(':api')
+    //implementation project(':model')
+    //implementation project(':services')
+    //implementation project(':repository')
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.support.core_ktx
+    implementation deps.navigation.fragment_ktx
+    implementation deps.room.runtime
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.java8
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+    implementation (deps.glide.core, {
+        exclude group: "com.android.support"
+    })
+    implementation (deps.glide.recyclerview) {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
+    kapt deps.glide.annotationprocessor
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    implementation deps.constraint_layout
+    implementation deps.kotlin.stdlib
+
+    // Add this line
+
+    implementation deps.timber
+
+    // Debug database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.room.compiler
+    kapt deps.lifecycle.compiler
+
+    testImplementation deps.junit
+    testImplementation deps.mock_web_server
+    testImplementation (deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    testImplementation deps.mockito.core
+    androidTestImplementation deps.room.testing
+
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+
+    androidTestImplementation deps.support.app_compat
+    androidTestImplementation deps.support.recyclerview
+    androidTestImplementation deps.support.cardview
+    androidTestImplementation deps.support.design
+
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation(deps.espresso.contrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+
+    androidTestImplementation(deps.arch_core.testing, {
+    })
+    androidTestImplementation deps.dexmaker
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation deps.mockito.android
+
+    implementation(deps.crashlytics.sdk, {
+        transitive = true
+    })
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'
