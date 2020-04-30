@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'com.google.firebase.firebase-perf'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-allopen'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
@@ -192,5 +188,3 @@ dependencies {
 
 
 }
-
-apply plugin: 'com.google.gms.google-services'

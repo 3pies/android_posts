@@ -6,9 +6,6 @@ buildscript {
     addRepos(repositories)
     dependencies {
         classpath deps.android_gradle_plugin
-        classpath deps.google_services_plugin
-        classpath deps.fabric_plugin
-        classpath deps.firebase_plugin
         classpath deps.kotlin.plugin
         classpath deps.kotlin.allopen
         classpath deps.navigation.safe_args_plugin
