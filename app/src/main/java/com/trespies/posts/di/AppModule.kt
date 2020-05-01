@@ -16,7 +16,14 @@
 
 package com.trespies.posts.di
 
+import android.app.Application
+import androidx.room.Room
+import com.trespies.posts.db.PostsDB
+import com.trespies.posts.db.PostsDao
+import com.trespies.posts.services.Configuration
 import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
@@ -43,15 +50,27 @@ class AppModule {
     }*/
 
 
-/*
+
     @Singleton
     @Provides
-    fun providePostsDb(app: Application): PostsDb {
+    fun providePostsDB(app: Application, configuration: Configuration): PostsDB {
         return Room
-                .databaseBuilder(app, PostsDb::class.java, "posts.db")
+                .databaseBuilder(app, PostsDB::class.java, configuration.databaseName)
                 .fallbackToDestructiveMigration()
                 .build()
     }
-*/
+
+    @Singleton
+    @Provides
+    fun providesPostsDAO(db: PostsDB) : PostsDao {
+        return db.postsDAO()
+    }
+
+    @Singleton
+    @Provides
+    fun providesConfiguration(app: Application) : Configuration {
+        return Configuration(app)
+    }
+
 
 }

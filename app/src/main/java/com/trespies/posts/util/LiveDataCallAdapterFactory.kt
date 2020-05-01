@@ -17,7 +17,6 @@
 package com.trespies.posts.util
 
 import androidx.lifecycle.LiveData
-import com.trespies.podcast.util.LiveDataCallAdapter
 import com.trespies.posts.api.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.CallAdapter.Factory

@@ -1,34 +1,29 @@
 package com.trespies.posts
 
 import android.app.Activity
-import android.app.Service
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.trespies.posts.di.AppInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import dagger.android.HasServiceInjector
+import timber.log.Timber
 import javax.inject.Inject
 
-class PostsApp : MultiDexApplication(), HasActivityInjector, HasServiceInjector {
+class PostsApp : MultiDexApplication(), HasActivityInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    @Inject
-    lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
-
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+        AppInjector.init(this)
     }
 
     override fun activityInjector() = dispatchingAndroidInjector
-
-    override fun serviceInjector() = dispatchingServiceInjector
 
 }
