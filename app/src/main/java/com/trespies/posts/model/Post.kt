@@ -10,4 +10,6 @@ import java.io.Serializable
     ],
     primaryKeys = ["id"]
 )
-data class Post (val id: Int, val userId: Int, val title: String?, val body: String?) : Serializable
+data class Post (val id: Int, val userId: Int, val title: String?, val body: String?) : Serializable {
+    companion object
+}

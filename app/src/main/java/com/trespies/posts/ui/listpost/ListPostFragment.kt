@@ -60,13 +60,13 @@ class ListPostFragment : Fragment(), Injectable {
         binding.list.adapter = rvAdapter
         adapter = rvAdapter
 
-
-
         binding.callback = object : RetryCallback {
             override fun retry() {
                 viewModel.refresh()
             }
         }
+
+        viewModel.refresh()
     }
 
     private fun initRecyclerView() {
