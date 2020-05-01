@@ -17,6 +17,7 @@
 package com.trespies.posts.di
 
 
+import com.trespies.posts.ui.listpost.ListPostFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -24,9 +25,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
 
-    /*
-    EXAMPLE
     @ContributesAndroidInjector
-    abstract fun contributeDashboardFragment(): DashboardFragment
-    */
+    abstract fun contributeListPostFragment(): ListPostFragment
+
 }

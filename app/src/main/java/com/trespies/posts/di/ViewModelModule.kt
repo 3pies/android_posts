@@ -18,6 +18,7 @@ package com.trespies.posts.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.trespies.posts.ui.listpost.ListPostViewModel
 import com.trespies.posts.viewmodel.ViewModelFactory
 
 import dagger.Binds
@@ -28,13 +29,8 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class ViewModelModule {
 
-/*
-EXAMPLE
-    @Binds
-    @IntoMap
-    @ViewModelKey(CommonViewModel::class)
-    abstract fun bindCommonViewModel(commonViewModel: CommonViewModel) : ViewModel
-*/
+    @Binds @IntoMap @ViewModelKey(ListPostViewModel::class)
+    abstract fun bindListPostViewModel(listPostViewModel: ListPostViewModel) : ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

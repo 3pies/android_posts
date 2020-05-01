@@ -9,7 +9,7 @@
         <import type="com.trespies.posts.vo.Status" />
         <import type="com.trespies.posts.vo.Resource" />
         <import type="androidx.lifecycle.LiveData"/>
-        <variable name="searchResult" type="LiveData&lt;Resource&lt;List&lt;Post>>>" />
+        <variable name="results" type="LiveData&lt;Resource&lt;List&lt;Post>>>" />
         <variable name="callback" type="com.trespies.posts.ui.common.RetryCallback" />
     </data>
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:id="@+id/load_more_bar"
-            app:visibleGone="@{searchResult.status == Status.LOADING}"
+            app:visibleGone="@{results.status == Status.LOADING}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="@string/empty_result"
             android:id="@+id/no_results_text"
-            app:visibleGone="@{searchResult.status == Status.SUCCESS &amp;&amp; searchResult.data.size == 0}"
+            app:visibleGone="@{results.status == Status.SUCCESS &amp;&amp; results.data.size == 0}"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -57,7 +57,7 @@
 
         <include
             layout="@layout/loading_state"
-            app:resource="@{(Resource) searchResult}"
+            app:resource="@{(Resource) results}"
             app:callback="@{() -> callback.retry()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
