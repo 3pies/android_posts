@@ -105,35 +105,24 @@ android {
 }
 
 dependencies {
-    //implementation project(':api')
-    //implementation project(':model')
-    //implementation project(':services')
-    //implementation project(':repository')
-
-    implementation 'com.android.support:multidex:1.0.3'
-
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.cardview
-    implementation deps.support.design
-    implementation deps.support.core_ktx
+    implementation deps.multidex.core
+    implementation deps.app_compat
+    implementation deps.recyclerview
+    implementation deps.cardview
+    implementation deps.material
+    implementation deps.core_ktx
+    implementation deps.transition
+    implementation deps.fragment.testing
     implementation deps.navigation.fragment_ktx
     implementation deps.room.runtime
+    implementation deps.lifecycle.livedata_ktx
     implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.okhttp_logging_interceptor
-
-    implementation (deps.glide.core, {
-        exclude group: "com.android.support"
-    })
-    implementation (deps.glide.recyclerview) {
-        // Excludes the support library because it's already included by Glide.
-        transitive = false
-    }
-    kapt deps.glide.annotationprocessor
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
 
     implementation deps.dagger.runtime
     implementation deps.dagger.android
@@ -141,12 +130,7 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
 
-    // Add this line
-
     implementation deps.timber
-
-    // Debug database
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
@@ -155,35 +139,26 @@ dependencies {
 
     testImplementation deps.junit
     testImplementation deps.mock_web_server
-    testImplementation (deps.arch_core.testing, {
-        exclude group: 'com.android.support', module: 'support-compat'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-    })
+    testImplementation deps.arch_core.testing
     testImplementation deps.mockito.core
-    androidTestImplementation deps.room.testing
+    testImplementation deps.retrofit.mock
 
+    androidTestImplementation deps.atsl.core
+    androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
 
-    androidTestImplementation deps.support.app_compat
-    androidTestImplementation deps.support.recyclerview
-    androidTestImplementation deps.support.cardview
-    androidTestImplementation deps.support.design
+    androidTestImplementation deps.app_compat
+    androidTestImplementation deps.recyclerview
+    androidTestImplementation deps.cardview
+    androidTestImplementation deps.material
 
-    androidTestImplementation(deps.espresso.core, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
-    androidTestImplementation(deps.espresso.contrib, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
 
-    androidTestImplementation(deps.arch_core.testing, {
-    })
-    androidTestImplementation deps.dexmaker
-    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core
     androidTestImplementation deps.mockito.android
+
 
 }
