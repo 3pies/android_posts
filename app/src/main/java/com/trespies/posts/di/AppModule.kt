@@ -18,6 +18,8 @@ package com.trespies.posts.di
 
 import android.app.Application
 import androidx.room.Room
+import com.trespies.posts.api.PostService
+import com.trespies.posts.api.clients.PostsRestClient
 import com.trespies.posts.db.PostsDB
 import com.trespies.posts.db.PostsDao
 import com.trespies.posts.services.Configuration
@@ -28,28 +30,11 @@ import javax.inject.Singleton
 @Module(includes = [ViewModelModule::class])
 class AppModule {
 
-    /*@Singleton
+    @Singleton
     @Provides
-    fun providePostsService(): PodcastService {
-        val logging = HttpLoggingInterceptor()
-        // set your desired log level
-        logging.level = HttpLoggingInterceptor.Level.BASIC
-        val httpClient = OkHttpClient.Builder()
-        // add your other interceptors …
-        // add logging as last interceptor
-        httpClient.addInterceptor(logging)  // <-- this is the important line!
-
-
-        return Retrofit.Builder()
-                .baseUrl("https://podcast.3pies.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .client(httpClient.build())
-                .build()
-                .create(PodcastService::class.java)
-    }*/
-
-
+    fun providePostsService(configuration: Configuration): PostService {
+        return PostsRestClient(configuration).client
+    }
 
     @Singleton
     @Provides
