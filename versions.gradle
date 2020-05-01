@@ -5,60 +5,49 @@
  **/
 ext.deps = [:]
 def versions = [:]
-versions.arch_core = "2.0.0"
-versions.room = "2.0.0"
-versions.lifecycle = "2.0.0"
-versions.support = "1.0.0"
-versions.support_material = "1.1.0-rc02"
-versions.dagger = "2.22.1"
-versions.junit = "4.12"
-versions.espresso = "3.1.0"
-versions.retrofit = "2.5.0"
-versions.okhttp_logging_interceptor = "3.9.0"
-versions.mockwebserver = "3.8.1"
-versions.apache_commons = "2.5"
-versions.mockito = "3.2.0"
-versions.mockito_all = "2.0.2-beta"
-versions.mockito_android = "3.2.0"
-versions.mockwebserver = "3.8.1"
-versions.dexmaker = "2.2.0"
-versions.constraint_layout = "2.0.0-beta4"
-versions.core_ktx = "1.0.0"
-versions.fragment = "1.1.0-alpha05"
-versions.glide = "4.10.0"
-versions.coil = "0.6.1"
-versions.timber = "4.7.1"
+versions.activity = '1.1.0'
 versions.android_gradle_plugin = '3.6.2'
-versions.google_services_plugin = "4.2.0"
-versions.firebase_plugin = "1.1.5"
-versions.rxjava2 = "2.2.8"
-versions.rx_android = "2.1.1"
-versions.atsl_runner = "1.1.1"
-versions.atsl_rules = "1.1.1"
-versions.atsl_junit = "1.1.0"
-versions.benchmark = "1.0.0-alpha01"
+versions.annotations = "1.0.0"
+versions.apache_commons = "2.5"
+versions.appcompat = "1.2.0-alpha02"
+versions.arch_core = "2.1.0"
+versions.atsl_core = "1.2.0"
+versions.atsl_junit = "1.1.1"
+versions.atsl_rules = "1.2.0"
+versions.atsl_runner = "1.2.0"
+versions.benchmark = "1.0.0"
+versions.cardview = "1.0.0"
+versions.constraint_layout = "2.0.0-alpha2"
+versions.core_ktx = "1.1.0"
+versions.coroutines = "1.3.3"
+versions.dagger = "2.16"
+versions.dexmaker = "2.2.0"
+versions.espresso = "3.2.0"
+versions.fragment = "1.2.1"
+versions.glide = "4.8.0"
 versions.hamcrest = "1.3"
-versions.kotlin = "1.3.71"
-versions.kotlin_coroutines = "1.3.5"
-versions.paging = "2.0.0-rc01"
-versions.firebase = "16.0.3"
-versions.firestore = "17.1.5"
-versions.inappmessaging = "17.0.1"
-versions.messaging = "17.3.4"
-versions.crash = "16.2.0"
-versions.perf = "16.1.0"
-versions.ml_vision = "18.0.2"
-versions.ml_vision_image_label = "17.0.2"
-versions.remote_config = "16.4.0"
-versions.crashlytics = "2.9.9"
-versions.sonarqube = "2.7.1"
-versions.jacoco = "0.8.1"
-versions.work = "2.1.0-alpha01"
-versions.navigation = "2.1.0-alpha01"
+versions.junit = "4.12"
+versions.kotlin = "1.3.61"
+versions.lifecycle = "2.2.0"
+versions.material = "1.0.0"
+versions.mockito = "2.25.0"
+versions.mockito_all = "1.10.19"
+versions.mockito_android = "2.25.0"
+versions.mockwebserver = "3.8.1"
+versions.navigation = "2.3.0-alpha01"
+versions.okhttp_logging_interceptor = "3.9.0"
+versions.paging = "2.1.1"
+versions.recyclerview = "1.0.0"
+versions.retrofit = "2.3.0"
 versions.robolectric = "4.2"
-versions.chipsinputlayout = "1.0.1"
-versions.socketio = "0.8.3"
-versions.jsoup = "1.12.1"
+versions.room = "2.2.3"
+versions.rx_android = "2.0.1"
+versions.rxjava2 = "2.1.3"
+versions.timber = "4.7.1"
+versions.transition = "1.3.0"
+versions.truth = "1.0.1"
+versions.work = "2.2.0"
+ext.versions = versions
 
 def deps = [:]
 deps.benchmark = "androidx.benchmark:benchmark:$versions.benchmark"
@@ -68,8 +57,8 @@ def support = [:]
 support.annotations = "androidx.annotation:annotation:$versions.support"
 support.app_compat = "androidx.appcompat:appcompat:$versions.support"
 support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
-support.cardview = "androidx.cardview:cardview:$versions.support"
-support.design = "com.google.android.material:material:$versions.support_material"
+support.cardview = "androidx.cardview:cardview:$versions.cardview"
+support.design = "com.google.android.material:material:$versions.material"
 support.v4 = "androidx.legacy:legacy-support-v4:$versions.support"
 support.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
 support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
@@ -146,27 +135,6 @@ deps.kotlin = kotlin
 
 deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
 
-def firebase = [:]
-firebase.core = "com.google.firebase:firebase-core:$versions.firebase"
-firebase.messaging = "com.google.firebase:firebase-messaging:$versions.messaging"
-firebase.crash = "com.google.firebase:firebase-crash:$versions.crash"
-firebase.analytics = "com.google.android.gms:play-services-analytics:$versions.firebase"
-firebase.performance = "com.google.firebase:firebase-perf:$versions.perf"
-firebase.firestore = "com.google.firebase:firebase-firestore:$versions.firestore"
-firebase.auth = "com.google.firebase:firebase-auth:$versions.firebase"
-firebase.inappmessaging = "com.google.firebase:firebase-inappmessaging:$versions.inappmessaging"
-firebase.inappmessaging_display = "com.google.firebase:firebase-inappmessaging-display:$versions.inappmessaging"
-
-firebase.ml_vision = "com.google.firebase:firebase-ml-vision:$versions.ml_vision"
-firebase.ml_vision_image_label = "com.google.firebase:firebase-ml-vision-image-label-model:$versions.ml_vision_image_label"
-firebase.remote_config = "com.google.firebase:firebase-config:$versions.remote_config"
-
-deps.firebase = firebase
-
-def crashlytics = [:]
-crashlytics.sdk = "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar"
-deps.crashlytics = crashlytics
-
 def jacoco = [:]
 jacoco.core = "org.jacoco:org.jacoco.core:$versions.jacoco"
 deps.jacoco = jacoco
@@ -193,30 +161,15 @@ deps.roboelectric = "org.robolectric:robolectric:$versions.robolectric"
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.google_services_plugin = "com.google.gms:google-services:$versions.google_services_plugin"
-deps.firebase_plugin = "com.google.firebase:firebase-plugins:$versions.firebase_plugin"
-deps.fabric_plugin = "io.fabric.tools:gradle:1.28.0"
-deps.sonar_plugin = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$versions.sonarqube"
-
-def extras = [:]
-extras.socketio = "io.socket:socket.io-client:$versions.socketio"
-extras.coil = "io.coil-kt:coil:$versions.coil"
-extras.jsoup = "org.jsoup:jsoup:$versions.jsoup"
-deps.extras = extras
 
 ext.deps = deps
 
 def build_versions = [:]
 build_versions.min_sdk = 21
-build_versions.target_sdk = 28
-build_versions.build_tools = "28.0.3"
+build_versions.compile_sdk = 29
+build_versions.target_sdk = 29
+build_versions.build_tools = "29.0.3"
 ext.build_versions = build_versions
-
-def work = [:]
-work.runtime = "androidx.work:work-runtime:$versions.work"
-work.testing = "androidx.work:work-testing:$versions.work"
-work.firebase = "androidx.work:work-firebase:$versions.work"
-work.runtime_ktx = "androidx.work:work-runtime-ktx:$versions.work"
-deps.work = work
 
 def navigation = [:]
 navigation.runtime = "androidx.navigation:navigation-runtime:$versions.navigation"
@@ -236,6 +189,5 @@ def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://maven.fabric.io/public' }
     handler.maven { url 'https://plugins.gradle.org/m2/' }
     handler.maven { url 'https://jitpack.io'}
-    handler.maven { url 'http://sdk.uxcam.com/android/' }
 }
 ext.addRepos = this.&addRepos

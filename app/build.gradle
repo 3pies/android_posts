@@ -78,6 +78,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
     sourceSets {
         androidTest.java.srcDirs += "src/test-common/java"
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
@@ -182,10 +185,5 @@ dependencies {
     androidTestImplementation deps.dexmaker
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
     androidTestImplementation deps.mockito.android
-
-    implementation(deps.crashlytics.sdk, {
-        transitive = true
-    })
-
 
 }
