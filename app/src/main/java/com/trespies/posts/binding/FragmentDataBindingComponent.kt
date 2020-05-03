@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.trespies.podcast.binding
+package com.trespies.posts.binding
 
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.Fragment

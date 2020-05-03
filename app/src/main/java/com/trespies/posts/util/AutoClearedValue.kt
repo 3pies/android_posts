@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.trespies.podcast.util
+package com.trespies.posts.util
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

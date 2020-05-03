@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.trespies.podcast.binding
+package com.trespies.posts.binding
 
 import android.view.View
 import androidx.databinding.BindingAdapter

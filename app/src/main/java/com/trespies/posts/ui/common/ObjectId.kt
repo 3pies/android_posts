@@ -1,7 +1,7 @@
 package com.trespies.posts.ui.common
 
 import androidx.lifecycle.LiveData
-import com.trespies.podcast.util.AbsentLiveData
+import com.trespies.posts.util.AbsentLiveData
 
 data class ObjectId<V>(val obj: V? = null, var version: Int = 0) {
     fun <T> ifExists(f: (V?) -> LiveData<T>): LiveData<T> {
