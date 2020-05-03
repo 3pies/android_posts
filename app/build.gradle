@@ -10,10 +10,10 @@ def getBuildDate() {
     return formattedDate
 }
 
-/*allOpen {
+allOpen {
     // allows mocking for classes w/o directly opening them for release builds
     annotation 'com.trespies.posts.testing.OpenClass'
-}*/
+}
 android {
 
     def mayor = 0
