@@ -2,7 +2,9 @@ package com.trespies.posts.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.trespies.posts.model.Comment
 import com.trespies.posts.model.Post
+import com.trespies.posts.model.User
 
 
 /**
@@ -10,10 +12,11 @@ import com.trespies.posts.model.Post
  */
 @Database(
         entities = [
-            Post::class
-
+            Post::class,
+            User::class,
+            Comment::class
         ],
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 abstract class PostsDB : RoomDatabase() {
