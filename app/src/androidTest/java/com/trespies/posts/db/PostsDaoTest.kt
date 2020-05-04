@@ -1,6 +1,5 @@
 package com.trespies.posts.db
 
-import android.database.sqlite.SQLiteException
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trespies.posts.util.TestUtil
@@ -34,52 +33,6 @@ class RepoDaoTest : DbTest() {
         assertThat(item.body, `is`("body"))
     }
 
-   /* @Test
-    fun insertContributorsWithoutRepo() {
-        val repo = TestUtil.createRepo("foo", "bar", "desc")
-        val contributor = TestUtil.createContributor(repo, "c1", 3)
-        try {
-            db.repoDao().insertContributors(listOf(contributor))
-            throw AssertionError("must fail because repo does not exist")
-        } catch (ex: SQLiteException) {
-        }
-
-    }
-
-    @Test
-    fun insertContributors() {
-        val repo = TestUtil.createRepo("foo", "bar", "desc")
-        val c1 = TestUtil.createContributor(repo, "c1", 3)
-        val c2 = TestUtil.createContributor(repo, "c2", 7)
-        db.runInTransaction {
-            db.repoDao().insert(repo)
-            db.repoDao().insertContributors(arrayListOf(c1, c2))
-        }
-        val list = db.repoDao().loadContributors("foo", "bar").getOrAwaitValue()
-        assertThat(list.size, `is`(2))
-        val first = list[0]
-
-        assertThat(first.login, `is`("c2"))
-        assertThat(first.contributions, `is`(7))
-
-        val second = list[1]
-        assertThat(second.login, `is`("c1"))
-        assertThat(second.contributions, `is`(3))
-    }
-
-    @Test
-    fun createIfNotExists_exists() {
-        val repo = TestUtil.createRepo("foo", "bar", "desc")
-        db.repoDao().insert(repo)
-        assertThat(db.repoDao().createRepoIfNotExists(repo), `is`(-1L))
-    }
-
-    @Test
-    fun createIfNotExists_doesNotExist() {
-        val repo = TestUtil.createRepo("foo", "bar", "desc")
-        assertThat(db.repoDao().createRepoIfNotExists(repo), `is`(1L))
-    }
-*/
     @Test
     fun insertPostThenUpdatePost() {
         val post = TestUtil.createPost(1, 2, "title", "body")
@@ -109,4 +62,35 @@ class RepoDaoTest : DbTest() {
 
         assertThat(data.getOrAwaitValue().size, `is`(0))
     }
+
+    @Test
+    fun insertAndReadUser() {
+        val user = TestUtil.createUser(1, "name", "email.info")
+        db.postsDAO().insertUser(user)
+
+        val loaded = db.postsDAO().loadUser(1).getOrAwaitValue()
+
+        assertThat(loaded, notNullValue())
+
+        assertThat(loaded.id, `is`(1))
+        assertThat(loaded.name, `is`("name"))
+        assertThat(loaded.email, `is`("email.info"))
+        assertThat(loaded.username, `is`("name"))
+    }
+
+    @Test
+    fun insertUserThenUpdateUser() {
+        val user = TestUtil.createUser(1, "foo", "email.info")
+        db.postsDAO().insertUser(user)
+
+        var loaded = db.postsDAO().loadUser(1).getOrAwaitValue()
+
+        assertThat(loaded.name, `is`("foo"))
+        val update = TestUtil.createUser(1,  "bar", "email.com")
+        db.postsDAO().insertUser(update)
+        loaded = db.postsDAO().loadUser(1).getOrAwaitValue()
+
+        assertThat(loaded.name, `is`("bar"))
+    }
+
 }

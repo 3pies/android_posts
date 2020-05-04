@@ -2,6 +2,7 @@ package com.trespies.posts.util
 
 import com.trespies.posts.api.objects.ApiObjectPost
 import com.trespies.posts.model.Post
+import com.trespies.posts.model.User
 
 object TestUtil {
 
@@ -41,5 +42,8 @@ object TestUtil {
         body = body
     )
 
+    fun createUser(id: Int, name: String, email: String) = User(
+        id, name, name, name, email, "phone", "website"
+    )
 
 }
