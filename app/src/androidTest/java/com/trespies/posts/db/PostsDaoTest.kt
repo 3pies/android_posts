@@ -93,4 +93,51 @@ class RepoDaoTest : DbTest() {
         assertThat(loaded.name, `is`("bar"))
     }
 
+    @Test
+    fun insertAndReadComment() {
+        val comment = TestUtil.createComment(1, 2, "name", "email","body")
+        db.postsDAO().insertComments(listOf(comment))
+
+        val loaded = db.postsDAO().loadCommentsByPostID(2).getOrAwaitValue()
+
+        assertThat(loaded, notNullValue())
+        assertThat(loaded.size, `is`(1))
+        val item = loaded[0]
+        assertThat(item.id, `is`(1))
+        assertThat(item.postId, `is`(2))
+        assertThat(item.name, `is`("name"))
+        assertThat(item.email, `is`("email"))
+        assertThat(item.body, `is`("body"))
+    }
+
+    @Test
+    fun insertCommentThenUpdateComment() {
+        val comment = TestUtil.createComment(1, 2, "name", "email","body")
+        db.postsDAO().insertComments(listOf(comment))
+
+        var data = db.postsDAO().loadCommentsByPostID(2)
+
+        assertThat(data.getOrAwaitValue().size, `is`(1))
+        val update = TestUtil.createComment(1, 2, "name_update", "email_update", "body_update")
+        db.postsDAO().insertComments(listOf(update))
+        data = db.postsDAO().loadCommentsByPostID(2)
+
+        assertThat(data.getOrAwaitValue().size, `is`(1))
+    }
+
+    @Test
+    fun insertCommentThenDeleteComment() {
+        val comment = TestUtil.createComment(1, 2, "name", "email",  "body")
+        db.postsDAO().insertComments(listOf(comment))
+
+        var data = db.postsDAO().loadCommentsByPostID(2)
+
+        assertThat(data.getOrAwaitValue().size, `is`(1))
+
+        db.postsDAO().deleteCommentsByPostID(2)
+        data = db.postsDAO().loadCommentsByPostID(2)
+
+        assertThat(data.getOrAwaitValue().size, `is`(0))
+    }
+
 }
