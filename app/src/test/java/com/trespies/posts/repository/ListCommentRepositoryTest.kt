@@ -7,7 +7,6 @@ import com.trespies.posts.api.PostService
 import com.trespies.posts.db.PostsDB
 import com.trespies.posts.db.PostsDao
 import com.trespies.posts.model.Comment
-import com.trespies.posts.model.Post
 import com.trespies.posts.util.*
 import com.trespies.posts.vo.Resource
 import org.hamcrest.CoreMatchers
