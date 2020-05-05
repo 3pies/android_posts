@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "name": "Daniel Ferrer",
+  "username": "ferrer",
+  "email": "daniel.ferrer.delgado@gmail.com",
+  "address": {
+    "street": "street",
+    "suite": "suite",
+    "city": "coruña",
+    "zipcode": "15000",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  },
+  "phone": "666-666-666",
+  "website": "3pies.es",
+  "company": {
+    "name": "3pies.es",
+    "catchPhrase": "phrase",
+    "bs": "bs"
+  }
+}
