@@ -24,6 +24,9 @@ interface PostsDao {
     @Query("SELECT * FROM Post ORDER BY id ASC")
     fun loadPosts(): LiveData<List<Post>>
 
+    @Query("SELECT * FROM Post WHERE id = :postID")
+    fun loadPost(postID: Int): LiveData<Post>
+
     @Query("SELECT * FROM User WHERE id = :userID LIMIT 1")
     fun loadUser(userID: Int): LiveData<User>
 

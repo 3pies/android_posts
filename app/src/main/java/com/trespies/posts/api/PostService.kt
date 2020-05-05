@@ -17,6 +17,9 @@ interface PostService {
     @GET("posts")
     fun getPosts(): LiveData<ApiResponse<List<ApiObjectPost>>>
 
+    @GET("posts/{postID}")
+    fun getPost(@Path("postID") postID: Int): LiveData<ApiResponse<ApiObjectPost>>
+
     @GET("users/{userID}")
     fun getUser(@Path("userID") userID: Int) : LiveData<ApiResponse<ApiObjectUser>>
 
