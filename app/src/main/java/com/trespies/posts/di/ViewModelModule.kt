@@ -18,6 +18,7 @@ package com.trespies.posts.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.trespies.posts.ui.detailpost.DetailPostViewModel
 import com.trespies.posts.ui.listpost.ListPostViewModel
 import com.trespies.posts.viewmodel.ViewModelFactory
 
@@ -31,6 +32,9 @@ abstract class ViewModelModule {
 
     @Binds @IntoMap @ViewModelKey(ListPostViewModel::class)
     abstract fun bindListPostViewModel(listPostViewModel: ListPostViewModel) : ViewModel
+
+    @Binds @IntoMap @ViewModelKey(DetailPostViewModel::class)
+    abstract fun bindDetailPostViewModel(detailPostViewModel: DetailPostViewModel) : ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

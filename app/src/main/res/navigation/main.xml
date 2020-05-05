@@ -7,9 +7,18 @@
         android:id="@+id/listPostFragment"
         android:name="com.trespies.posts.ui.listpost.ListPostFragment"
         android:label="ListPostFragment" >
-        <!--<action
+        <action
             android:id="@+id/showPost"
-            app:destination="@id/detailPostFragment" /> -->
+            app:destination="@id/detailPostFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailPostFragment"
+        android:name="com.trespies.posts.ui.detailpost.DetailPostFragment"
+        android:label="DetailPostFragment" >
+        <argument
+            android:name="postID"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
