@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.trespies.posts.AppExecutors
@@ -29,6 +30,7 @@ class DetailPostFragment : Fragment(), Injectable {
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
     var binding by autoCleared<DetailPostFragmentBinding>()
     private val params by navArgs<DetailPostFragmentArgs>()
+    private var adapter by autoCleared<CommentListAdapter>()
 
     val viewModel: DetailPostViewModel by viewModels {
         viewModelFactory
@@ -59,7 +61,25 @@ class DetailPostFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.post = viewModel.post
+        binding.author = viewModel.user
 
+        val adapter = CommentListAdapter(dataBindingComponent, appExecutors) { comment ->
+            Timber.d("Click on comment %s", comment.body)
+        }
+        this.adapter = adapter
+        binding.list.adapter = adapter
+
+        initCommentList()
+    }
+
+    private fun initCommentList() {
+        viewModel.comments.observe(viewLifecycleOwner, Observer { listResource ->
+            if (listResource?.data != null) {
+                adapter.submitList(listResource.data)
+            } else {
+                adapter.submitList(emptyList())
+            }
+        })
     }
 
 }
