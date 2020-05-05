@@ -15,6 +15,7 @@ import com.trespies.posts.R
 import com.trespies.posts.binding.FragmentDataBindingComponent
 import com.trespies.posts.databinding.DetailPostFragmentBinding
 import com.trespies.posts.di.Injectable
+import com.trespies.posts.ui.common.RetryCallback
 import com.trespies.posts.util.autoCleared
 import timber.log.Timber
 import javax.inject.Inject
@@ -44,13 +45,20 @@ class DetailPostFragment : Fragment(), Injectable {
             false,
             dataBindingComponent
         )
-
+        binding.retryCallback = object : RetryCallback {
+            override fun retry() {
+                viewModel.refresh()
+            }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = viewLifecycleOwner
         Timber.d("Post to load %d", params.postID)
+        viewModel.setId(params.postID)
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.post = viewModel.post
 
     }
 
