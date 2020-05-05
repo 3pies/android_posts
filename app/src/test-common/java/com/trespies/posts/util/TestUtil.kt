@@ -1,5 +1,6 @@
 package com.trespies.posts.util
 
+import com.trespies.posts.api.objects.ApiObjectComment
 import com.trespies.posts.api.objects.ApiObjectPost
 import com.trespies.posts.model.Comment
 import com.trespies.posts.model.Post
@@ -49,5 +50,13 @@ object TestUtil {
 
     fun createComment(id: Int, postID: Int, name: String?, email: String?, body: String?) = Comment(
         id, postID, name, email, body
+    )
+
+    fun createApiComment(id: Int, postId: Int, name: String?, email: String?, body: String?) = ApiObjectComment(
+        id = id,
+        postId = postId,
+        name = name,
+        email = email,
+        body = body
     )
 }
