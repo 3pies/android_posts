@@ -104,6 +104,39 @@ class GithubServiceTest {
         assertThat(user.address?.city, `is`("coruña"))
     }
 
+    @Test
+    fun getComments() {
+        enqueueResponse("comments.json")
+        val comments = (service.getCommentsByPostID(6).getOrAwaitValue() as ApiSuccessResponse).body
+
+        val request = mockWebServer.takeRequest()
+        assertThat(request.path, `is`("/posts/6/comments"))
+
+        assertThat(comments.size, `is`(3))
+
+        val comment = comments[0]
+
+        assertThat(comment.id, `is`(1))
+        assertThat(comment.postId, `is`(6))
+        assertThat(comment.name, `is`("name1"))
+        assertThat(comment.body, `is`("body1"))
+        assertThat(comment.email, `is`("email1@info.co"))
+
+        val comment2 = comments[1]
+        assertThat(comment2.id, `is`(2))
+        assertThat(comment2.postId, `is`(6))
+        assertThat(comment2.name, `is`("name2"))
+        assertThat(comment2.body, `is`("body2"))
+        assertThat(comment2.email, `is`("email2@info.co"))
+
+        val comment3 = comments[2]
+        assertThat(comment3.id, `is`(3))
+        assertThat(comment3.postId, `is`(6))
+        assertThat(comment3.name, `is`("name3"))
+        assertThat(comment3.body, `is`("body3"))
+        assertThat(comment3.email, `is`("email3@info.co"))
+    }
+
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
         val inputStream = javaClass.classLoader!!
             .getResourceAsStream("api-response/$fileName")
