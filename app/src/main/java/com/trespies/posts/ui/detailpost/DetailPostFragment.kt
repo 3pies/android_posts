@@ -18,6 +18,7 @@ import com.trespies.posts.databinding.DetailPostFragmentBinding
 import com.trespies.posts.di.Injectable
 import com.trespies.posts.ui.common.RetryCallback
 import com.trespies.posts.util.autoCleared
+import com.trespies.posts.vo.Status
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -78,6 +79,12 @@ class DetailPostFragment : Fragment(), Injectable {
                 adapter.submitList(listResource.data)
             } else {
                 adapter.submitList(emptyList())
+            }
+            when(listResource.status) {
+                Status.SUCCESS, Status.ERROR -> {
+                    binding.numberComments = listResource.data?.size ?: 0
+                    binding.executePendingBindings()
+                }
             }
         })
     }
