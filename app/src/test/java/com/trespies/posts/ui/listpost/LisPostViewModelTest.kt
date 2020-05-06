@@ -23,7 +23,6 @@ class LisPostViewModelTest {
 
     @Before
     fun init() {
-        // need ot init after instant executor rule is established.
         viewModel = ListPostViewModel(repository)
     }
 
