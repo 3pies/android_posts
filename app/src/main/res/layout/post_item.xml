@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="showFullName"
-            type="boolean" />
-
-        <variable
-            name="post"
-            type="com.trespies.posts.model.Post" />
+        <variable name="post" type="com.trespies.posts.model.Post" />
     </data>
 
     <androidx.cardview.widget.CardView

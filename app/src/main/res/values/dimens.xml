@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_margin">16dp</dimen>
     <dimen name="photo_size">30dip</dimen>
+    <integer name="post_per_row">2</integer>
 </resources>
