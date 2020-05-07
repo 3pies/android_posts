@@ -40,7 +40,7 @@
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{comment.email}"
+                app:formatEmail="@{comment.email}"
                 tools:text="Lorem ipsum"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/default_margin"

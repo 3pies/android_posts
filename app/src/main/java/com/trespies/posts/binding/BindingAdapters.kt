@@ -17,6 +17,7 @@
 package com.trespies.posts.binding
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
 /**
@@ -27,5 +28,18 @@ object BindingAdapters {
     @BindingAdapter("visibleGone")
     fun showHide(view: View, show: Boolean) {
         view.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("formatEmail")
+    fun formatEmail(textView: TextView, email: String?) {
+        var email = email ?: return
+        if (email.toLowerCase().endsWith(".info")) {
+           email += " ℹ️"
+        }
+        if (email.toLowerCase().endsWith(".co.uk")) {
+            email += " \uD83C\uDDEC\uD83C\uDDE7"
+        }
+        textView.text = email
     }
 }
