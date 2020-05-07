@@ -63,6 +63,7 @@ class DetailPostFragment : Fragment(), Injectable {
 
         binding.post = viewModel.post
         binding.author = viewModel.user
+        binding.comments = viewModel.comments
 
         val adapter = CommentListAdapter(dataBindingComponent, appExecutors) { comment ->
             Timber.d("Click on comment %s", comment.body)

@@ -14,6 +14,7 @@
 
         <variable name="post" type="LiveData&lt;Resource&lt;Post>>" />
         <variable name="author" type="LiveData&lt;Resource&lt;User>>" />
+        <variable name="comments" type="LiveData&lt;Resource&lt;List&lt;Comment>>>" />
         <variable name="number_comments" type="Integer" />
 
         <variable name="retryCallback" type="com.trespies.posts.ui.common.RetryCallback" />
@@ -22,49 +23,66 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/author_name"
-            style="@style/TextAppearance.AppCompat.Headline"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:visibleGone="@{author.data != null}"
-            android:text="@{author.data.fullName}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="name of the author" />
+        android:layout_height="match_parent"
+        style="@style/Screen">
 
         <TextView
             android:id="@+id/description"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/Title.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_large"
             app:visibleGone="@{post.data != null}"
             android:text="@{post.data.body}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/author_name"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="description of the post" />
 
         <TextView
-            android:id="@+id/total_comments"
-            style="@style/TextAppearance.AppCompat.Body1"
+            android:id="@+id/author_name"
+            style="@style/SubTitle.White"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:visibleGone="@{number_comments != null}"
-            android:text="@{String.valueOf(number_comments)}"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_base"
+            app:visibleGone="@{author.data != null}"
+            android:text="@{author.data.fullName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description"
-            tools:text="0" />
+            tools:text="name of the author" />
+
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="4dp"
+            app:cardBackgroundColor="@color/fontWhiteColor">
+
+            <TextView
+                android:id="@+id/total_comments"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:visibleGone="@{number_comments != null}"
+                android:text="@{String.valueOf(number_comments)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                tools:text="0" />
+
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -78,7 +96,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/total_comments"
+            app:layout_constraintTop_toBottomOf="@+id/author_name"
             tools:listitem="@layout/comment_item" />
         <include
             layout="@layout/loading_state"
