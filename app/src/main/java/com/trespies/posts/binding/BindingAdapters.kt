@@ -19,7 +19,6 @@ package com.trespies.posts.binding
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-
 /**
  * Data Binding adapters specific to the app.
  */
