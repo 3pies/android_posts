@@ -60,6 +60,7 @@
 
         <include
             layout="@layout/loading_state"
+            app:isEmpty="@{results.data == null || results.data.size() == 0}"
             app:resource="@{(Resource) results}"
             app:callback="@{() -> callback.retry()}"
             android:layout_width="wrap_content"

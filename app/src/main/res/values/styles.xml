@@ -34,6 +34,12 @@
         <item name="android:textColor">@color/fontWhiteColor</item>
     </style>
 
+    <style name="TotalComments">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+        <item name="android:textSize">@dimen/font_size_base</item>
+        <item name="android:textColor">@color/fontPrimaryColor</item>
+    </style>
+
     <style name="CardTitle">
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textSize">@dimen/font_size_title</item>

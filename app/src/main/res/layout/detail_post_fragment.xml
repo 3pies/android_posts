@@ -57,30 +57,50 @@
             tools:text="name of the author" />
 
 
-        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardCornerRadius="8dp"
-            app:contentPadding="4dp"
-            app:cardBackgroundColor="@color/fontWhiteColor">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_comments"
+            android:layout_width="160dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/margin_large"
+            app:visibleGone="@{number_comments != null}"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="@dimen/margin_large"
+            app:cardElevation="4dp"
+            app:contentPadding="@dimen/margin_small"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/author_name"
+            app:contentPaddingTop="0dp" app:contentPaddingBottom="0dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="116dp">
+                <TextView
+                    android:id="@+id/total_comments"
 
-            <TextView
-                android:id="@+id/total_comments"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TotalComments"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@{String.valueOf(number_comments)}"
 
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:visibleGone="@{number_comments != null}"
-                android:text="@{String.valueOf(number_comments)}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description"
-                tools:text="0" />
+                    tools:text="0" />
 
-        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+                <ImageView
+                    android:id="@+id/icon_comments"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_sms_24px"
+                    android:layout_marginStart="@dimen/margin_small"
+                    app:layout_constraintStart_toEndOf="@+id/total_comments"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/fontPrimaryColor"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
 
@@ -89,28 +109,31 @@
             app:layoutManager="LinearLayoutManager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_large"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/author_name"
+            app:layout_constraintTop_toBottomOf="@+id/card_comments"
             tools:listitem="@layout/comment_item" />
+
         <include
             layout="@layout/loading_state"
-            app:resource="@{(Resource) post}"
+            app:isEmpty="@{comments.data == null || comments.data.size() == 0}"
+            app:resource="@{(Resource) comments}"
             app:callback="@{() -> retryCallback.retry()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/margin_base"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/margin_base"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/margin_base"
+            android:layout_marginTop="@dimen/margin_base"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
