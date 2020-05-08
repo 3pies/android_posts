@@ -23,8 +23,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/Screen">
+        style="@style/Screen"
+        app:layoutDescription="@xml/scene"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/description"
@@ -57,6 +67,26 @@
             app:layout_constraintTop_toBottomOf="@+id/description"
             tools:text="name of the author" />
 
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            app:layoutManager="LinearLayoutManager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_large"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_comments"
+            tools:listitem="@layout/comment_item" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_comments"
@@ -103,25 +133,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            app:layoutManager="LinearLayoutManager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginBottom="@dimen/margin_base"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:layout_marginStart="@dimen/margin_large"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_comments"
-            tools:listitem="@layout/comment_item" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <include
+            android:id="@+id/loading_state"
             layout="@layout/loading_state"
             app:isEmpty="@{comments.data == null || comments.data.size() == 0}"
             app:errorMsg="@{@string/comments_list_error_msg}"
@@ -135,9 +150,11 @@
             android:layout_marginEnd="@dimen/margin_base"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/margin_base"
-            android:layout_marginTop="@dimen/margin_large"
-            app:layout_constraintTop_toBottomOf="@+id/card_comments" />
+            android:layout_marginTop="@dimen/margin_xxlarge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{comments.data == null || comments.data.size() == 0}"
+
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

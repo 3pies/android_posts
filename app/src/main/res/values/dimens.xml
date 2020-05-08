@@ -10,4 +10,5 @@
     <dimen name="font_size_small">11sp</dimen>
     <dimen name="font_size_base">13sp</dimen>
     <dimen name="font_size_title">16sp</dimen>
+    <dimen name="margin_xxlarge">64dp</dimen>
 </resources>
