@@ -9,42 +9,50 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:padding="@dimen/margin_large">
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{comment.name}"
+                style="@style/CardTitle"
                 tools:text="Lorem ipsum"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="@dimen/margin_base" />
 
             <TextView
                 android:id="@+id/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{comment.body}"
+                style="@style/Body"
                 tools:text="Lorem ipsum"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="@dimen/margin_base" />
 
             <ImageView
-                android:layout_width="@dimen/photo_size"
                 app:imageUrlRounded="@{comment.avatarUrl}"
-
+                android:layout_width="@dimen/photo_size"
                 android:layout_height="@dimen/photo_size"
                 android:id="@+id/avatar"
                 android:contentDescription="@string/content_description_user_photo"
                 android:scaleType="centerCrop"
-
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginBottom="@dimen/margin_base"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/body"
                 />
@@ -55,11 +63,12 @@
                 android:layout_height="wrap_content"
                 app:formatEmail="@{comment.email}"
                 tools:text="Lorem ipsum"
+                style="@style/SubTitle"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
-                android:layout_marginStart="@dimen/margin_large"
-                app:layout_constraintTop_toBottomOf="@+id/body"
-                android:layout_marginTop="8dp"
-                app:layout_goneMarginStart="8dp" />
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_large"
+                app:layout_constraintTop_toTopOf="@+id/avatar"
+                app:layout_constraintBottom_toBottomOf="@+id/avatar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

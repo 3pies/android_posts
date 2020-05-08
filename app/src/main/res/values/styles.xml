@@ -30,6 +30,12 @@
         <item name="android:textColor">@color/fontPrimaryColor</item>
     </style>
 
+    <style name="Body">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/font_size_base</item>
+        <item name="android:textColor">@color/fontPrimaryColor</item>
+    </style>
+
     <style name="SubTitle.White">
         <item name="android:textColor">@color/fontWhiteColor</item>
     </style>

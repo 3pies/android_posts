@@ -4,7 +4,7 @@
     <dimen name="margin_base">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
 
-    <dimen name="photo_size">30dip</dimen>
+    <dimen name="photo_size">20dip</dimen>
     <integer name="post_per_row">1</integer>
 
     <dimen name="font_size_small">11sp</dimen>
