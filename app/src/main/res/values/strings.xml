@@ -4,4 +4,6 @@
     <string name="empty_result">No results found</string>
     <string name="unknown_error">Unknown error</string>
     <string name="content_description_user_photo">user photo</string>
+    <string name="comments_list_error_msg">The comments could not be read</string>
+    <string name="posts_list_error_msg">The posts could not be read</string>
 </resources>
