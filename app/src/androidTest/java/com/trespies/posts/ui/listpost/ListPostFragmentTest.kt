@@ -1,18 +1,11 @@
 package com.trespies.posts.ui.listpost
 
-import android.content.Context
-import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -22,7 +15,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trespies.posts.binding.FragmentBindingAdapters
 import com.trespies.posts.R
 import com.trespies.posts.model.Post
-//import com.trespies.posts.binding.FragmentBindingAdapters
 import com.trespies.posts.util.CountingAppExecutorsRule
 import com.trespies.posts.util.DataBindingIdlingResourceRule
 import com.trespies.posts.util.RecyclerViewMatcher
@@ -37,13 +29,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doNothing
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
 class ListPostFragmentTest {
@@ -94,7 +81,7 @@ class ListPostFragmentTest {
     @Test
     fun testLoading() {
         postsLiveData.postValue(Resource.loading(null))
-        onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
+        onView(withId(R.id.load_more_bar)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
     }
 
