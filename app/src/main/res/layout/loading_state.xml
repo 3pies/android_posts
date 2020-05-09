@@ -49,18 +49,5 @@
             tools:text="An error ocurred"
             />
 
-
-        <ProgressBar
-            android:id="@+id/loading"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:indeterminate="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:visibleGone="@{resource.status == Status.LOADING}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
