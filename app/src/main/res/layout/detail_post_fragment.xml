@@ -91,7 +91,7 @@
             app:visibleGone="@{number_comments != null}"
             app:cardBackgroundColor="@color/colorAccent"
             app:cardCornerRadius="@dimen/margin_large"
-            app:cardElevation="4dp"
+            app:cardElevation="@dimen/margin_small"
             app:contentPadding="@dimen/margin_small"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"

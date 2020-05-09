@@ -24,7 +24,7 @@ class DetailPostViewModel @Inject constructor(
     private val objectID = MutableLiveData<ObjectId<Int>>()
     private val mediator = MediatorLiveData<ObjectId<Post>>()
 
-    final val post : LiveData<Resource<Post>> = Transformations.switchMap(objectID) { input ->
+    val post : LiveData<Resource<Post>> = Transformations.switchMap(objectID) { input ->
         input.ifExists { input.obj?.let { id -> postRepository.loadPost(id) } ?: AbsentLiveData.create() }
     }
 
