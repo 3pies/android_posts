@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -24,6 +25,9 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
+import org.hamcrest.CoreMatchers.not
 
 @RunWith(AndroidJUnit4::class)
 class DetailPostFragmentTest {
@@ -81,10 +85,46 @@ class DetailPostFragmentTest {
         postLiveData.postValue(Resource.loading(null))
         userLiveData.postValue(Resource.loading(null))
         commentsLiveData.postValue(Resource.loading(null))
-        Espresso.onView(ViewMatchers.withId(R.id.load_more_bar))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.retry))
-            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
+        onView(withId(R.id.load_more_bar)).check(matches(isDisplayed()))
+        onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun loadingWithData() {
+        val post = TestUtil.createPost(1, 2, "title1", "body1")
+        val user = TestUtil.createUser(2, "name", "email")
+        postLiveData.postValue(Resource.loading(post))
+        userLiveData.postValue(Resource.loading(user))
+        onView(withId(R.id.description)).check(matches(withText(post.body)))
+        onView(withId(R.id.author_name)).check(matches(withText(user.fullName)))
+        onView(withId(R.id.load_more_bar)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testComments() {
+        setComments()
+
+        onView(withId(R.id.total_comments)).check(matches(withText("3")))
+
+        onView(listMatcher().atPosition(0)).check(matches(hasDescendant(withText("name1"))))
+        onView(listMatcher().atPosition(0)).check(matches(hasDescendant(withText("email1@gmail.com"))))
+
+        onView(listMatcher().atPosition(1)).check(matches(hasDescendant(withText("name2"))))
+        onView(listMatcher().atPosition(1)).check(matches(hasDescendant(withText("email2@mail"))))
+
+        onView(listMatcher().atPosition(2)).check(matches(hasDescendant(withText("name3"))))
+        onView(listMatcher().atPosition(2)).check(matches(hasDescendant(withText("email3@mail.co.uk \uD83C\uDDEC\uD83C\uDDE7"))))
+    }
+
+    private fun listMatcher(): RecyclerViewMatcher {
+        return RecyclerViewMatcher(R.id.list)
+    }
+
+    private fun setComments() {
+        val comment1 = TestUtil.createComment(1, 1, "name1", "email1@gmail.com", "body1")
+        val comment2 = TestUtil.createComment(2, 1, "name2", "email2@mail", "body2")
+        val comment3 = TestUtil.createComment(3, 1, "name3", "email3@mail.co.uk", "body3")
+        commentsLiveData.postValue(Resource.success(listOf(comment1, comment2, comment3)))
     }
 
 }

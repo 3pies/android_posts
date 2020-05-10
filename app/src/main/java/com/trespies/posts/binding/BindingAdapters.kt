@@ -34,7 +34,7 @@ object BindingAdapters {
     fun formatEmail(textView: TextView, email: String?) {
         var email = email ?: return
         if (email.toLowerCase().endsWith(".info")) {
-           email += " ℹ️"
+           email += " \u2139️"
         }
         if (email.toLowerCase().endsWith(".co.uk")) {
             email += " \uD83C\uDDEC\uD83C\uDDE7"

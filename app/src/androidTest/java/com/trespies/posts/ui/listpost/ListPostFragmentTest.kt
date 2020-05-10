@@ -98,7 +98,7 @@ class ListPostFragmentTest {
         return RecyclerViewMatcher(R.id.list)
     }
 
-    private fun setPosts(vararg names: String) {
+    private fun setPosts() {
         val post1 = TestUtil.createPost(1, 2, "title1", "body1")
         val post2 = TestUtil.createPost(2, 2, "title2", "body2")
         postsLiveData.postValue(Resource.success(listOf(post1, post2)))
